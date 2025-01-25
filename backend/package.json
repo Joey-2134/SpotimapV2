@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joey-2134/SpotimapV2.git"
+  },
+  "author": "Joey Galvin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joey-2134/SpotimapV2/issues"
+  },
+  "homepage": "https://github.com/Joey-2134/SpotimapV2#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
