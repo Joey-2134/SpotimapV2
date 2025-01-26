@@ -21,7 +21,7 @@ export const saveUserToDb = async (userId, accessToken, refreshToken, expiresIn)
 
     try {
         await dynamoDB.put(params).promise();
-        console.log(`User ${userId} saved successfully.`);
+        //console.log(`User ${userId} saved successfully.`);
     } catch (err) {
         console.error('Error saving user:', err.message);
         throw new Error('Failed to save user data');
