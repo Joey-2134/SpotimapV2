@@ -19,7 +19,22 @@ playlistRouter.get('/playlists',  async (req, res) => {
     } catch (error) {
         console.log(`Failed to fetch playlists: ${error}`);
     }
+});
 
-})
+playlistRouter.get('/playlists/:playlistId', async (req, res) => {
+    let accessToken = await fetchUserAccessToken(req.user.userId);
+    let {playlistId} = req.params;
+    try {
+        const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        const playlist = await response.json();
+        return res.status(200).json(playlist);
+    } catch (error) {
+        console.log(`Failed to fetch playlist: ${error}`);
+    }
+});
 
 export default playlistRouter;

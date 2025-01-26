@@ -10,7 +10,3 @@ export const fetchUserSpotifyData = async (accessToken) => {
         console.log(error);
     }
 }
-
-export const fetchUserPlaylists = async (accessToken) => {
-
-}
