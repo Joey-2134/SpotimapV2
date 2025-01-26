@@ -1,8 +1,8 @@
 import axios from "axios";
 import {stringify} from "node:querystring";
-import {fetchUserSpotifyData} from "../Utils/SpotifyUtils.js";
-import {saveUserToDb} from "../Utils/AWS.js";
-import {generateJWT} from "../Utils/JWT.js";
+import {fetchUserSpotifyData} from "../utils/SpotifyUtils.js";
+import {saveUserToDb} from "../utils/AWS.js";
+import {generateJWT} from "../utils/JWT.js";
 import {Router} from "express";
 import dotenv from 'dotenv';
 dotenv.config();
