@@ -5,10 +5,12 @@ export const fetchUserSpotifyData = async (accessToken) => {
                 Authorization: `Bearer ${accessToken}`,
             },
         });
-        const data = await res.json();
-        return data.id;
+        return await res.json();
     } catch (error) {
         console.log(error);
     }
+}
+
+export const fetchUserPlaylists = async (accessToken) => {
 
 }

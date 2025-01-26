@@ -33,18 +33,34 @@ callbackRouter.get('/callback', async (req, res) => {
             }),
         )
 
-        console.table(exchangeRes.data);
+        //console.table(exchangeRes.data);
         const {access_token: accessToken, refresh_token: refreshToken, expires_in: expiresIn} = exchangeRes.data;
 
-        let userId = await fetchUserSpotifyData(accessToken);
+        let userData = await fetchUserSpotifyData(accessToken);
+        //console.table(userData);
+        const {id: userId, display_name: displayName, images} = userData;
+        const pfpUrl = images?.[0]?.url || null;
 
         if (!userId) {
             res.status(401).send('Failed to obtain user ID.');
             return;
         }
 
-        await saveUserToDb(userId, accessToken, refreshToken, expiresIn)
-        res.json(generateJWT(userId)); //send frontend back a JWT for them to save locally
+        try {
+            await saveUserToDb(userId, accessToken, refreshToken, expiresIn, displayName, pfpUrl);
+        } catch (error) {
+            console.error('Error saving user to database:', error);
+            res.status(500).send('Failed to save user to database.');
+            return;
+        }
+
+        const payload = {
+            displayName: displayName,
+            pfpUrl: pfpUrl,
+            JWT: generateJWT(userId)
+        }
+
+        res.status(200).json(payload);
         console.log(`User ${userId} saved to database!`);
 
     } catch (error) {

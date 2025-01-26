@@ -27,3 +27,18 @@ export const saveUserToDb = async (userId, accessToken, refreshToken, expiresIn)
         throw new Error('Failed to save user data');
     }
 }
+
+export const fetchUserAccessToken = async (userId) => {
+    const params = {
+        TableName: "User",
+        Key: {
+            spotifyId: userId
+        }
+    };
+    try {
+        const result = await dynamoDB.get(params).promise();
+        return result.Item.accessToken;
+    } catch (error) {
+        console.log(`Error fetching user access token from DB: ${error.message}`);
+    }
+}
