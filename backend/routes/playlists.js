@@ -51,8 +51,8 @@ playlistRouter.get('/playlists/:playlistId/tracks', async (req, res) => {
                 })
             })
             nextUrl = data.next;
-        } // gets list of artists from playlist
-    } catch (error) {
+        }
+    } catch (error) { // gets list of artists from playlist
         console.log(`Failed to fetch playlist: ${error}`);
         return res.status(500).json({ message: 'Failed to fetch playlist tracks.' });
     }
@@ -77,7 +77,7 @@ playlistRouter.get('/playlists/:playlistId/tracks', async (req, res) => {
         if (country) newCountrySet.add(country);
     }
     console.log("clean countries:", newCountrySet);
-    return res.status(200).json(newCountrySet);
+    return res.status(200).json(Array.from(newCountrySet));
 
 });
 

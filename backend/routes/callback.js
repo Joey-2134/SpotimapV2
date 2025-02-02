@@ -33,11 +33,9 @@ callbackRouter.get('/callback', async (req, res) => {
             }),
         )
 
-        //console.table(exchangeRes.data);
         const {access_token: accessToken, refresh_token: refreshToken, expires_in: expiresIn} = exchangeRes.data;
 
         let userData = await fetchUserSpotifyData(accessToken);
-        //console.table(userData);
         const {id: userId, display_name: displayName, images} = userData;
         const pfpUrl = images?.[0]?.url || null;
 

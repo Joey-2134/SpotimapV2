@@ -16,8 +16,6 @@ export const getCountryFromMBFromArtistName = async (artistName) => {
             country: artistData.area?.name || "Unknown",
         };
 
-        await fs.appendFile("artistInfo.json", JSON.stringify(artistInfo, null, 2) + ",\n");
-
         return artistInfo.country;
     } catch (error) {
         console.error(`Failed to fetch artist data: ${error.message}`);
