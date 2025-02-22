@@ -52,15 +52,21 @@ callbackRouter.get('/callback', async (req, res) => {
             return;
         }
 
-        const payload = {
-            displayName: displayName,
-            pfpUrl: pfpUrl,
-            JWT: generateJWT(userId)
-        }
-
-        res.status(200).json(payload);
         console.log(`User ${userId} saved to database!`);
 
+        const {accessToken: jwtAccess, refreshToken: jwtRefreshToken} = generateJWT(userId);
+
+        res.cookie('refresh_token', jwtRefreshToken, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'none'
+        });
+
+        return res.json({
+            accessToken: jwtAccess,
+            displayName: displayName,
+            pfpUrl: pfpUrl || "",
+        });
     } catch (error) {
         console.error('Error exchanging authorization code:', error);
         res.status(500).send('Failed to exchange authorization code.');
