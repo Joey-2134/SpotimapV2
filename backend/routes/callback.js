@@ -31,7 +31,7 @@ callbackRouter.get('/callback', async (req, res) => {
                 client_id: client_id,
                 client_secret: client_secret
             }),
-        )
+        );
 
         const {access_token: accessToken, refresh_token: refreshToken, expires_in: expiresIn} = exchangeRes.data;
 
@@ -56,10 +56,11 @@ callbackRouter.get('/callback', async (req, res) => {
 
         const {accessToken: jwtAccess, refreshToken: jwtRefreshToken} = generateJWT(userId);
 
+        console.log("Setting refresh token:", jwtRefreshToken);
         res.cookie('refresh_token', jwtRefreshToken, {
             httpOnly: true,
             secure: false,
-            sameSite: 'none'
+            sameSite: 'lax'
         });
 
         return res.json({
@@ -67,6 +68,7 @@ callbackRouter.get('/callback', async (req, res) => {
             displayName: displayName,
             pfpUrl: pfpUrl || "",
         });
+
     } catch (error) {
         console.error('Error exchanging authorization code:', error);
         res.status(500).send('Failed to exchange authorization code.');

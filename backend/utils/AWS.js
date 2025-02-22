@@ -42,3 +42,50 @@ export const fetchUserAccessToken = async (userId) => {
         console.log(`Error fetching user access token from DB: ${error.message}`);
     }
 }
+
+export const fetchUserRefreshToken = async (userId) => {
+    const params = {
+        TableName: "User",
+        Key: {
+            spotifyId: userId
+        }
+    };
+    try {
+        const result = await dynamoDB.get(params).promise();
+        return result.Item.refreshToken;
+    } catch (error) {
+        console.log(`Error fetching user refresh token from DB: ${error.message}`);
+    }
+}
+
+export const updateUserDetails = async (spotifyId, accessToken, refreshToken = null, expiresIn) => {
+    const params = {
+        TableName: "User",
+        Key: { spotifyId },
+        UpdateExpression: "set accessToken = :at, expiresAt = :exp" + (refreshToken ? ", refreshToken = :rt" : ""),
+        ExpressionAttributeValues: {
+            ":at": accessToken,
+            ":exp": Date.now() + expiresIn * 1000, // Store expiration timestamp
+        },
+        ReturnValues: "UPDATED_NEW",
+    };
+
+    if (refreshToken) {
+        params.ExpressionAttributeValues[":rt"] = refreshToken;
+    }
+
+    try {
+        await dynamoDB.update(params).promise();
+        console.log(`Updated user ${spotifyId} with new tokens.`);
+    } catch (error) {
+        console.error(`Error updating user details: ${error.message}`);
+        throw new Error("Failed to update user tokens.");
+    }
+};
+
+export const fetchUserExpiresAt = async (userId) => {
+    return (await dynamoDB.get({
+        TableName: process.env.DYNAMO_DB_TABLE,
+        Key: {spotifyId: userId}
+    }).promise()).Item.expiresAt;
+}

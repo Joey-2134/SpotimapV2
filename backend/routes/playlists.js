@@ -4,11 +4,12 @@ import {fetchUserAccessToken} from "../utils/AWS.js";
 import {getCountryFromMBFromArtistName} from "../utils/MusicbrainzUtils.js";
 import {DELAY_BETWEEN_MB_REQUESTS} from "../utils/Constants.js";
 import {cleanCountryData} from "../utils/GoogleGeocoding.js";
+import {verifySpotifyAccessToken} from "../middleware/SpotifyMiddleware.js";
 
 const playlistRouter = Router();
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-playlistRouter.use(verifyJWT);
+playlistRouter.use(verifyJWT, verifySpotifyAccessToken);
 
 playlistRouter.get('/playlists',  async (req, res) => {
     let accessToken = await fetchUserAccessToken(req.user.userId);
