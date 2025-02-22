@@ -4,7 +4,7 @@ dotenv.config();
 import express from 'express';
 import loginRouter from "./routes/login.js";
 import callbackRouter from "./routes/callback.js";
-import playlistRouter from "./routes/playlists.js";
+import playlistRouter from "./routes/spotify.js";
 import authRouter from "./routes/auth.js";
 
 export const app = express();

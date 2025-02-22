@@ -27,7 +27,10 @@ export const verifyJWT = (req, res, next) => {
         req.user = jwt.verify(token, process.env.JWT_SECRET);
         next();
     } catch (error) {
-        return res.status(403).json({ message: 'Forbidden: Invalid or expired token' });
+        if (error.name === "TokenExpiredError") {
+            return res.status(401).json({ message: 'Unauthorized: Token expired' });
+        }
+        console.error("JWT Verification Error:", error.message);
+        return res.status(403).json({ message: 'Forbidden: Invalid token' });
     }
-
-}
+};

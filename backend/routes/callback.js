@@ -46,29 +46,29 @@ callbackRouter.get('/callback', async (req, res) => {
 
         try {
             await saveUserToDb(userId, accessToken, refreshToken, expiresIn, displayName, pfpUrl);
+            //console.log("User Spotify AT: " + accessToken);
+            console.log(`User ${userId} saved to database!`);
         } catch (error) {
             console.error('Error saving user to database:', error);
             res.status(500).send('Failed to save user to database.');
             return;
         }
 
-        console.log(`User ${userId} saved to database!`);
-
         const {accessToken: jwtAccess, refreshToken: jwtRefreshToken} = generateJWT(userId);
 
-        console.log("Setting refresh token:", jwtRefreshToken);
         res.cookie('refresh_token', jwtRefreshToken, {
             httpOnly: true,
             secure: false,
             sameSite: 'lax'
         });
 
-        return res.json({
-            accessToken: jwtAccess,
-            displayName: displayName,
-            pfpUrl: pfpUrl || "",
-        });
+        // return res.json({
+        //     accessToken: jwtAccess,
+        //     displayName: displayName,
+        //     pfpUrl: pfpUrl || "",
+        // });
 
+        return res.redirect(`${process.env.FRONTEND_BASE_URL}/Playlists?jwt=${jwtAccess}&displayName=${encodeURIComponent(displayName)}&pfpUrl=${encodeURIComponent(pfpUrl || '')}`);
     } catch (error) {
         console.error('Error exchanging authorization code:', error);
         res.status(500).send('Failed to exchange authorization code.');
