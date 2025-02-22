@@ -62,13 +62,13 @@ callbackRouter.get('/callback', async (req, res) => {
             sameSite: 'lax'
         });
 
-        // return res.json({
-        //     accessToken: jwtAccess,
-        //     displayName: displayName,
-        //     pfpUrl: pfpUrl || "",
-        // });
+        return res.json({
+            accessToken: jwtAccess,
+            displayName: displayName,
+            pfpUrl: pfpUrl || "",
+        });
 
-        return res.redirect(`${process.env.FRONTEND_BASE_URL}/Playlists?jwt=${jwtAccess}&displayName=${encodeURIComponent(displayName)}&pfpUrl=${encodeURIComponent(pfpUrl || '')}`);
+        //return res.redirect(`${process.env.FRONTEND_BASE_URL}/Playlists?jwt=${jwtAccess}&displayName=${encodeURIComponent(displayName)}&pfpUrl=${encodeURIComponent(pfpUrl || '')}`);
     } catch (error) {
         console.error('Error exchanging authorization code:', error);
         res.status(500).send('Failed to exchange authorization code.');
