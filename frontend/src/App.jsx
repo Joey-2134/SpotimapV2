@@ -1,9 +1,10 @@
 import "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {Playlists} from "./Playlists";
-import {Login} from "./Login";
-import {Home} from "./Home";
-import {AuthProvider} from "../utils/AuthContext.jsx";
+import {Playlists} from "./routes/Playlists.jsx";
+import {Login} from "./routes/Login.jsx";
+import {Home} from "./routes/Home.jsx";
+import {AuthProvider} from "./contexts/AuthContext.jsx";
+import {Callback} from "./routes/Callback.jsx";
 
 function App() {
   return (
@@ -11,8 +12,9 @@ function App() {
           <Router>
             <Routes>
                 <Route path="/" element={<Home />} />
-              <Route path="/Playlists" element={<Playlists />} />
-              <Route path="/login" element={<Login />} />
+                <Route path="/playlists" element={<Playlists />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/callback" element={<Callback />} />
             </Routes>
           </Router>
       </AuthProvider>
