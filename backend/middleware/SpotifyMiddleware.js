@@ -21,6 +21,6 @@ export const verifySpotifyAccessToken = async (req, res, next) => {
         next();
     } catch (error) {
         console.error("Error verifying Spotify token:", error);
-        return res.status(500).json({ message: "Error verifying access token." });
+        return res.status(500).json({ message: "+Error verifying access token." });
     }
 };
