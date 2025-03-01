@@ -54,6 +54,7 @@ callbackRouter.get('/callback', async (req, res) => {
             return;
         }
 
+        console.log("Here");
         const {accessToken: jwtAccess, refreshToken: jwtRefreshToken} = generateJWT(userId);
 
         res.cookie('refresh_token', jwtRefreshToken, {

@@ -12,6 +12,7 @@ const loginRouter = Router();
 
 loginRouter.get('/login', (req, res) => {
     let state = crypto.randomBytes(16).toString('hex');
+    console.log("Attempting to log in...");
     res.redirect('https://accounts.spotify.com/authorize?' +
         stringify({
             response_type: 'code',
