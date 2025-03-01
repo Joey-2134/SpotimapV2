@@ -10,17 +10,17 @@ import authRouter from "./routes/auth.js";
 export const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors({
-    origin: `${process.env.FRONTEND_BASE_URL}`,
-    credentials: false
-}));
-
 app.get('/health', (req, res) => {
     res.status(200).send({
         status: 'ok',
         text: 'Hello World!'
     })
-})
+});
+
+app.use(cors({
+    origin: `${process.env.FRONTEND_BASE_URL}`,
+    credentials: false
+}));
 
 app.use(loginRouter, callbackRouter, playlistRouter, authRouter);
 
