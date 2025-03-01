@@ -85,7 +85,7 @@ export const updateUserDetails = async (spotifyId, accessToken, refreshToken = n
 
 export const fetchUserExpiresAt = async (userId) => {
     return (await dynamoDB.get({
-        TableName: process.env.DYNAMO_DB_TABLE,
+        TableName: "User",
         Key: {spotifyId: userId}
     }).promise()).Item.expiresAt;
 }
