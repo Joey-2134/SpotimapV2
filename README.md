@@ -1,6 +1,6 @@
 # **Spotimap** 🎵🌍  
 
-**Live Website:** [Spotimap.io](https://spotimap.io)  
+**Live Website:** [Spotimap.io](https://www.spotimap.io)  
 
 ## **Overview**  
 
