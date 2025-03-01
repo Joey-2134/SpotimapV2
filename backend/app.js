@@ -15,6 +15,13 @@ app.use(cors({
     credentials: false
 }));
 
+app.get('/health', (req, res) => {
+    res.status(200).send({
+        status: 'ok',
+        text: 'Hello World!'
+    })
+})
+
 app.use(loginRouter, callbackRouter, playlistRouter, authRouter);
 
 app.listen(port, () => {
