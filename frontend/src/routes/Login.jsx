@@ -1,10 +1,10 @@
 import "react";
-import {BACKEND_BASE_URL} from "../../utils/constants.js";
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 export const Login = () => {
 
     const handleLogin = async () => {
-        window.location.href = `${BACKEND_BASE_URL}/login`;
+        window.location.href = `${BACKEND_URL}/login`;
     };
 
     return (

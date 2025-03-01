@@ -37,6 +37,10 @@ jobs:
         with:
           node-version: 18
 
+      - name: Set Environment Variables
+        run: |
+          echo "VITE_API_URL=https://${{ secrets.EC2_HOST }}" > frontend/.env
+
       - name: Install Dependencies & Build Frontend
         run: |
           cd frontend
