@@ -6,7 +6,7 @@ const PlaylistCard = ({ imgUrl, playlistName, id }) => {
     return (
         <button className="flex flex-col items-center bg-neutral-700 p-4 rounded-lg shadow-md"
             onClick={() => {
-                navigate(`/map/${id}`);
+                navigate(`/map?${id}`);
             }}
         >
             <img
