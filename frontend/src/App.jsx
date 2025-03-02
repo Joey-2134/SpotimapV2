@@ -15,6 +15,7 @@ function App() {
                 <Route path="/playlists" element={<Playlists />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/callback" element={<Callback />} />
+                <Route path="/map" element={<Map />} />
             </Routes>
           </Router>
       </AuthProvider>

@@ -22,6 +22,7 @@ export const Playlists = () => {
             setLoading(true); // ⬅️ Show loading before fetching
             try {
                 const res = await fetchUserPlaylists(jwt);
+                console.log(res);
                 setPlaylists(res.data.items);
             } catch (error) {
                 console.error("Error fetching playlists:", error);
@@ -52,7 +53,7 @@ export const Playlists = () => {
             ) : playlists.length > 0 ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
                     {playlists.map(playlist => (
-                        <PlaylistCard key={playlist.id} imgUrl={playlist.images[0]?.url} playlistName={playlist.name} />
+                        <PlaylistCard key={playlist.id} imgUrl={playlist.images[0]?.url} playlistName={playlist.name} id={playlist.id}/>
                     ))}
                 </div>
             ) : (
