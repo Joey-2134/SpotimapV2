@@ -40,7 +40,7 @@ export const Playlists = () => {
             <Navbar pfp={pfpUrl} name={displayName}/>
             <div className="flex flex-col items-center">
 
-                <h2 className="mb-5 text-5xl font-bold">Your Playlists</h2>
+                <h2 className="mb-5 text-5xl font-bold text-[#1ed760]">Your Playlists</h2>
 
                 {loading ? (
                     <div className="flex items-center justify-center mt-10">
@@ -48,7 +48,7 @@ export const Playlists = () => {
                         <p className="ml-3 text-white text-lg">Loading your playlists...</p>
                     </div>
                 ) : playlists.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
                         {playlists.map(playlist => (
                             <PlaylistCard key={playlist.id} imgUrl={playlist.images[0]?.url} playlistName={playlist.name} />
                         ))}
