@@ -1,13 +1,21 @@
-const PlaylistCard = ({ imgUrl, playlistName }) => {
+import {useNavigate} from "react-router-dom";
+
+const PlaylistCard = ({ imgUrl, playlistName, id }) => {
+    const navigate = useNavigate();
+
     return (
-        <div className="flex flex-col items-center bg-neutral-700 p-4 rounded-lg shadow-md">
+        <button className="flex flex-col items-center bg-neutral-700 p-4 rounded-lg shadow-md"
+            onClick={() => {
+                navigate(`/map?${id}`);
+            }}
+        >
             <img
                 src={imgUrl}
                 alt={`${playlistName} cover`}
                 className="w-32 h-32 rounded-lg object-cover"
             />
             <p className="mt-2 text-center font-medium text-white">{playlistName}</p>
-        </div>
+        </button>
     );
 };
 
