@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run Local" type="CompoundRunConfigurationType">
+    <toRun name="Backend Local" type="ShConfigurationType" />
+    <toRun name="Frontend Local" type="ShConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
