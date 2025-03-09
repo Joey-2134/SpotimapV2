@@ -31,7 +31,7 @@ jobs:
           PORT=${{ secrets.BACKEND_PORT }}
           CLIENT_ID=${{ secrets.CLIENT_ID }}
           CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}
-          REDIRECT_URI=${{ secrets.REDIRECT_URI }}
+          REDIRECT_URI=https://api.spotimap.io/callback
           AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           JWT_SECRET=${{ secrets.JWT_SECRET }}
