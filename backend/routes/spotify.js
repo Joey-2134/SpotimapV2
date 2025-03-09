@@ -28,6 +28,9 @@ playlistRouter.get('/playlists',  async (req, res) => {
 playlistRouter.get('/playlists/:playlistId',  async (req, res) => {
     let accessToken = await fetchUserAccessToken(req.user.userId);
     const { playlistId } = req.params;
+    if (!/^[a-zA-Z0-9]+$/.test(playlistId)) {
+        return res.status(400).json({ message: 'Invalid playlist ID format.' });
+    }
     let artistNamesSet = new Set();
     const output = [];
 
