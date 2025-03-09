@@ -19,22 +19,6 @@ export const fetchUserSpotifyData = async (accessToken) => {
     }
 }
 
-export const getSetOfArtistsFromPlaylist = (playlistTracks) => {
-    let artists = new Set();
-
-    if (!playlistTracks || !playlistTracks.items) {
-        return artists; // Return empty set if no items
-    }
-
-    playlistTracks.items.forEach(item => {
-        item.track.artists.forEach(artist => {
-            artists.add(artist.name);
-        })
-    });
-
-    return artists;
-}
-
 export const refreshAccessToken = async (userId) => {
     const refreshToken = await fetchUserRefreshToken(userId);
     if (!refreshToken) {

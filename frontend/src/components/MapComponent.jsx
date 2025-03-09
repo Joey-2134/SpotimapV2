@@ -13,23 +13,16 @@ const MapComponent = ({ artistData }) => {
     let fillColorExpression = ['match', ['get', 'name_en']];
 
     useEffect(() => {
+        let countrySet = new Set();
         artistData.forEach(artist => {
-            fillColorExpression.push(artist.country, '#00FF00');
+            countrySet.add(artist.country);
+        })
+
+        countrySet.forEach(country => {
+            fillColorExpression.push(country, '#00FF00');
         })
         fillColorExpression.push('rgba(0,0,0,0.5)');
     })
-
-    //example for colouring country (push name and colour)
-    // let fillColorExpression = [
-    //     'match',
-    //     ['get', 'name_en'],
-    //     'France', '#00FF00', // Green
-    //     'Germany', '#00FF00', // Green
-    //     'United Kingdom', '#FF0000', // Red
-    //     'Spain', '#0000FF', // Blue
-    //     'Italy', '#FFFF00', // Yellow
-    //     'rgba(0,0,0,0.5)' // Default: semi-transparent black
-    // ];
 
     useEffect(() => {
         mapboxgl.accessToken = MAPBOX_API_KEY;
