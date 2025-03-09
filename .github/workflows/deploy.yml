@@ -42,10 +42,14 @@ jobs:
       - name: Set Environment Variables
         run: |
           echo "VITE_API_URL=https://${{ secrets.EC2_HOST }}" > frontend/.env
+          echo "VITE_MAPBOX_API_KEY=https://${{ secrets.MAPBOX_API_KEY }}" >> frontend/.env
+          echo "VITE_MAPBOX_STYLE=https://${{ secrets.MAPBOX_STYLE }}" >> frontend/.env
 
       - name: Install Dependencies & Build Frontend
         run: |
           cd frontend
+          ls -al
+          cat .env
           npm install
           npm run build
 
