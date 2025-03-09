@@ -29,9 +29,9 @@ jobs:
           ssh ec2-user@${{ secrets.EC2_HOST }} << EOF
           cat > /home/ec2-user/SpotimapV2/backend/.env << 'ENVFILE'
           PORT=${{ secrets.BACKEND_PORT }}
-          CLIENT_ID=${{ secrets.SPOTIFY_CLIENT_ID }}
-          CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }}
-          REDIRECT_URI=${{ secrets.SPOTIFY_REDIRECT_URI }}
+          CLIENT_ID=${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}
+          REDIRECT_URI=${{ secrets.REDIRECT_URI }}
           AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           JWT_SECRET=${{ secrets.JWT_SECRET }}
