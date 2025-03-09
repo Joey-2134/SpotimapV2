@@ -6,12 +6,13 @@ import loginRouter from "./routes/login.js";
 import callbackRouter from "./routes/callback.js";
 import playlistRouter from "./routes/spotify.js";
 import authRouter from "./routes/auth.js";
+import {FRONTEND_BASE_URL} from "./utils/Constants.js";
 
 export const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: `${process.env.FRONTEND_BASE_URL}`,
+    origin: `${FRONTEND_BASE_URL}`,
     credentials: false
 }));
 

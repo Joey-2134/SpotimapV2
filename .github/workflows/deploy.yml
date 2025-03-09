@@ -23,6 +23,24 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
+      # Create backend .env file on EC2 instance
+      - name: Generate backend .env file on EC2
+        run: |
+          ssh ec2-user@${{ secrets.EC2_HOST }} << EOF
+          cat > /home/ec2-user/SpotimapV2/backend/.env << 'ENVFILE'
+          PORT=${{ secrets.BACKEND_PORT }}
+          CLIENT_ID=${{ secrets.SPOTIFY_CLIENT_ID }}
+          CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          REDIRECT_URI=${{ secrets.SPOTIFY_REDIRECT_URI }}
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          JWT_REFRESH_SECRET=${{ secrets.JWT_REFRESH_SECRET }}
+          GOOGLE_GEOCODING_KEY=${{ secrets.GOOGLE_GEOCODING_KEY }}
+          ENVFILE
+          chmod 600 /home/ec2-user/SpotimapV2/backend/.env
+          EOF
+
       - name: Deploy Backend to EC2
         run: |
           ssh ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
@@ -39,17 +57,21 @@ jobs:
         with:
           node-version: 18
 
-      - name: Set Environment Variables
+      - name: Set Frontend Environment Variables
         run: |
-          echo "VITE_API_URL=https://${{ secrets.EC2_HOST }}" > frontend/.env
-          echo "VITE_MAPBOX_API_KEY=https://${{ secrets.MAPBOX_API_KEY }}" >> frontend/.env
-          echo "VITE_MAPBOX_STYLE=https://${{ secrets.MAPBOX_STYLE }}" >> frontend/.env
+          cat > frontend/.env << EOF
+          VITE_API_URL=https://${{ secrets.EC2_HOST }}
+          VITE_MAPBOX_API_KEY=${{ secrets.MAPBOX_API_KEY }}
+          VITE_MAPBOX_STYLE=${{ secrets.MAPBOX_STYLE }}
+          EOF
+          
+          # Verify the .env file was created correctly
+          ls -al frontend/
+          cat frontend/.env
 
       - name: Install Dependencies & Build Frontend
         run: |
           cd frontend
-          ls -al
-          cat .env
           npm install
           npm run build
 

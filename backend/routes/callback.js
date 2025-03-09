@@ -5,10 +5,11 @@ import {saveUserToDb} from "../utils/AWS.js";
 import {generateJWT} from "../utils/JWT.js";
 import {Router} from "express";
 import dotenv from 'dotenv';
+import {FRONTEND_BASE_URL} from "../utils/Constants.js";
 dotenv.config();
 
 const client_id = process.env.CLIENT_ID;
-const redirect_uri = process.env.REDIRECT_URI;
+const redirect_uri = process.env.REDIRECT_URI || 'http://localhost:3000/callback';
 const client_secret = process.env.CLIENT_SECRET;
 
 const callbackRouter = Router();
@@ -63,7 +64,7 @@ callbackRouter.get('/callback', async (req, res) => {
             sameSite: 'lax'
         });
 
-        return res.redirect(`${process.env.FRONTEND_BASE_URL}/callback?token=${encodeURIComponent(jwtAccess)}&displayName=${encodeURIComponent(displayName)}&pfpUrl=${encodeURIComponent(pfpUrl || '')}`);
+        return res.redirect(`${FRONTEND_BASE_URL}/callback?token=${encodeURIComponent(jwtAccess)}&displayName=${encodeURIComponent(displayName)}&pfpUrl=${encodeURIComponent(pfpUrl || '')}`);
     } catch (error) {
         console.error('Error exchanging authorization code:', error);
         res.status(500).send('Failed to exchange authorization code.');
