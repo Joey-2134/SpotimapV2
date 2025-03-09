@@ -2,8 +2,8 @@ import {useEffect, useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext.jsx";
 import {fetchUserPlaylists} from "../requests/Spotify.js";
-import Avatar from "../compenents/Avatar.jsx";
-import PlaylistCard from "../compenents/PlaylistCard.jsx";
+import Avatar from "../components/Avatar.jsx";
+import PlaylistCard from "../components/PlaylistCard.jsx";
 
 export const Playlists = () => {
     const [playlists, setPlaylists] = useState([]);

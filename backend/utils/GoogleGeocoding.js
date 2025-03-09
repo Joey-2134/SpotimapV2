@@ -1,7 +1,7 @@
 import {GEOCODING_BASE_URL} from "./Constants.js";
 import fs from "fs";
 
-const validCountries = JSON.parse(fs.readFileSync("./countries.json", "utf-8"));
+//const validCountries = JSON.parse(fs.readFileSync("./countries.json", "utf-8"));
 const countrySet = new Set(validCountries);
 
 export const cleanCountryData = async (countries) => {
@@ -13,7 +13,7 @@ export const cleanCountryData = async (countries) => {
             let resolvedCountry = await findCountryName(country);
             if (resolvedCountry) {
                 countrySet.add(resolvedCountry); // Cache the resolved country
-                fs.writeFileSync("./countries.json", JSON.stringify([...countrySet], null, 2));
+               //fs.writeFileSync("./countries.json", JSON.stringify([...countrySet], null, 2));
             }
             return resolvedCountry;
         })
